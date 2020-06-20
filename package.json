@@ -1,0 +1,37 @@
+{
+    "name": "backenduptasktypescript",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./dist/index.js",
+        "dev": "nodemon",
+        "build": "rimraf ./dist/ && tsc"
+    },
+    "keywords": [],
+    "author": "Daniel Fernando Yepez Vélez",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "morgan": "^1.10.0",
+        "mysql2": "^2.1.0",
+        "passport": "^0.4.1",
+        "passport-jwt": "^4.0.0",
+        "shortid": "^2.2.15",
+        "slug": "^3.3.0"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.6",
+        "@types/dotenv": "^8.2.0",
+        "@types/express": "^4.17.6",
+        "@types/morgan": "^1.9.1",
+        "@types/mysql2": "github:types/mysql2",
+        "@types/passport": "^1.0.3",
+        "@types/passport-jwt": "^3.0.3",
+        "@types/typescript": "^2.0.0",
+        "rimraf": "^3.0.2",
+        "ts-node": "^8.10.2"
+    }
+}
