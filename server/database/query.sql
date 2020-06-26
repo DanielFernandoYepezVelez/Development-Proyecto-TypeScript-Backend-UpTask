@@ -17,6 +17,10 @@ IF NOT EXISTS users
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
+/* Alterando La Password Por Que Al Hashearla El String Es Mas Largo */
+ALTER TABLE users MODIFY password VARCHAR
+(70) NOT NULL;
+
 CREATE TABLE
 IF NOT EXISTS projects
 (

@@ -1,10 +1,13 @@
 import express, { Application } from 'express';
+import passport from 'passport';
 import morgan from 'morgan';
 import cors from 'cors';
 
 import projectRouter from './routes/project.routes';
 import taskRouter from './routes/task.routes';
 import userRouter from './routes/user.routes';
+
+import { passportJwt } from './libs/passport-jwt';
 
 class App {
   constructor(private app: Application) {}
@@ -18,6 +21,7 @@ class App {
     this.app.use(morgan('dev'));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    passport.use(passportJwt.nuevaStrategia());
   }
 
   public routes(): void {
