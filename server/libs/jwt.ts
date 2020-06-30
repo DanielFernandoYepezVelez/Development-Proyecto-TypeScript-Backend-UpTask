@@ -9,4 +9,13 @@ export class Jwt {
 
     return token;
   }
+
+  createTokenProjectId(idProject: number | string) {
+    const tokenProject = jwt.sign(
+      { project_id: idProject },
+      process.env.SECRET_KEY || 'token_para_desrrollo'
+    );
+
+    return tokenProject;
+  }
 }

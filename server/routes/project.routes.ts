@@ -16,6 +16,24 @@ class ProjectRoutes {
       passport.authenticate('jwt', { session: false }),
       projectController.newProject
     );
+
+    this.router.get(
+      '/project/url/:url_id',
+      passport.authenticate('jwt', { session: false }),
+      projectController.getProjectUrl
+    );
+
+    this.router.put(
+      '/project/:project_url/:project_id',
+      passport.authenticate('jwt', { session: false }),
+      projectController.getProjectId
+    );
+
+    this.router.delete(
+      '/project/:project_url/:project_id',
+      passport.authenticate('jwt', { session: false }),
+      projectController.deleteProject
+    );
   }
 }
 

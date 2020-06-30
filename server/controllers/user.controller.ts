@@ -31,7 +31,7 @@ class UserController {
     } catch (e) {
       const { name, email, password }: IUserSignUp = req.body;
 
-      if (name === undefined || password === undefined || email === undefined) {
+      if (name === undefined || email === undefined || password === undefined) {
         return res.status(400).json({
           ok: false,
           error: 'Data Incompleted!',
