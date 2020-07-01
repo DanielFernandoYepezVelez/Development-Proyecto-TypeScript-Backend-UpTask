@@ -50,6 +50,7 @@ class HapiJoi {
   validateTask(): ObjectSchema<Schema> {
     const schemaTask: ObjectSchema<Schema> = Joi.object({
       task: Joi.string().required().trim(),
+      project_id: Joi.string().required().trim(),
     });
 
     return schemaTask;

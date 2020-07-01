@@ -54,7 +54,7 @@ class ProjectController {
       if (name === undefined) {
         return res.status(400).json({
           ok: false,
-          message: 'Data Incompleted!',
+          message: 'Data Incomplete!',
         });
       }
 

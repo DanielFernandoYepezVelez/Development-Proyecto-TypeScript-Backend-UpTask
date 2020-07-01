@@ -6,13 +6,13 @@ import { taskController } from '../controllers/task.controller';
 class TaskRoutes {
   constructor(public router: Router) {
     this.router.get(
-      '/tasks/:url_id/:project_id',
+      '/tasks/:project_id',
       passport.authenticate('jwt', { session: false }),
       taskController.getTasks
     );
 
     this.router.post(
-      '/newtask',
+      '/newtask/:id_project',
       passport.authenticate('jwt', { session: false }),
       taskController.newTask
     );
