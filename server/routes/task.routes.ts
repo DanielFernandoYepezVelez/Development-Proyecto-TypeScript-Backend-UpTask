@@ -16,6 +16,18 @@ class TaskRoutes {
       passport.authenticate('jwt', { session: false }),
       taskController.newTask
     );
+
+    this.router.patch(
+      '/task/:task_id',
+      passport.authenticate('jwt', { session: false }),
+      taskController.updateTask
+    );
+
+    this.router.delete(
+      '/task/:id_task',
+      passport.authenticate('jwt', { session: false }),
+      taskController.deleteTask
+    );
   }
 }
 

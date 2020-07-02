@@ -170,6 +170,9 @@ class ProjectController {
       if (project_id === projectIdDB) {
         const conn = await pool;
         await conn.query('DELETE FROM projects WHERE id = ?', [project_id]);
+        await conn.query('DELETE FROM tasks WHERE project_id = ?', [
+          project_id,
+        ]);
 
         return res.json({
           ok: true,

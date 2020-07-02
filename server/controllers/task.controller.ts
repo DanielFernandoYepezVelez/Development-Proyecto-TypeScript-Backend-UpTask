@@ -90,6 +90,88 @@ class TaskController {
       });
     }
   }
+
+  async updateTask(req: Request, res: Response): Promise<Response<JSON>> {
+    try {
+      const { task_id } = req.params;
+
+      const conn = await pool;
+      const query = await conn.query('SELECT id FROM tasks WHERE id = ?', [
+        task_id,
+      ]);
+
+      const compareTaskId = new PasswordUserDB(query[0]).init(2, 7);
+
+      if (compareTaskId === task_id) {
+        let conn = await pool;
+        let query = await conn.query('SELECT state FROM tasks WHERE id = ?', [
+          task_id,
+        ]);
+
+        const stateDB = new PasswordUserDB(query[0]).init(2, 10);
+
+        let state = 0;
+        if (state === Number(stateDB)) {
+          state = 1;
+        }
+
+        conn = await pool;
+        query = await conn.query('UPDATE tasks SET state = ? WHERE id = ?', [
+          state,
+          task_id,
+        ]);
+
+        return res.json({
+          ok: true,
+          message: 'Task Updated Successfully',
+        });
+      } else {
+        return res.json({
+          ok: false,
+          message: 'Task No Exist!',
+        });
+      }
+    } catch (e) {
+      return res.status(400).json({
+        ok: false,
+        error: e,
+      });
+    }
+  }
+
+  async deleteTask(req: Request, res: Response): Promise<Response<JSON>> {
+    try {
+      const { id_task } = req.params;
+
+      const conn = await pool;
+      const query = await conn.query('SELECT id FROM tasks WHERE id = ?', [
+        id_task,
+      ]);
+
+      /* Confirma Que El Project_id Si Exista En La Base De Datos */
+      const idTaskDB = new PasswordUserDB(query[0]).init(2, 7);
+
+      if (id_task === idTaskDB) {
+        const conn = await pool;
+        await conn.query('DELETE FROM tasks WHERE id = ?', [id_task]);
+
+        return res.json({
+          ok: true,
+          message: 'Task Deleted Successfully',
+        });
+      } else {
+        return res.status(400).json({
+          ok: false,
+          message: 'Task No Exist!',
+        });
+      }
+    } catch (e) {
+      return res.status(400).json({
+        ok: false,
+        message: e,
+      });
+    }
+  }
 }
 
 export const taskController = new TaskController();
