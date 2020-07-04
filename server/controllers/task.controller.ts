@@ -22,7 +22,7 @@ class TaskController {
       if (compareProject_id === project_id) {
         const conn = await pool;
         const query = await conn.query(
-          'SELECT id, task, state, project_id FROM tasks WHERE project_id = ?',
+          'SELECT id, task, state, project_id FROM tasks WHERE project_id = ? ORDER BY id ASC',
           [project_id]
         );
 
@@ -62,7 +62,7 @@ class TaskController {
         await hapiJoi.validateTask().validateAsync(newTask);
 
         const conn = await pool;
-        const query = await conn.query('INSERT INTO tasks SET ?', [newTask]);
+        await conn.query('INSERT INTO tasks SET ?', [newTask]);
 
         return res.json({
           ok: true,
