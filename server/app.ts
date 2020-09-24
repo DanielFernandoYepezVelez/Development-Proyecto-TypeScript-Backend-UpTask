@@ -1,43 +1,48 @@
-import express, { Application } from 'express';
-import passport from 'passport';
-import morgan from 'morgan';
-import cors from 'cors';
+/* Enviroment Vairables */
+import "dotenv/config";
 
-import projectRouter from './routes/project.routes';
-import taskRouter from './routes/task.routes';
-import userRouter from './routes/user.routes';
+/* Libraries */
+import cors from "cors";
+import morgan from "morgan";
+import passport from "passport";
+import express, { Application } from "express";
 
-import { passportJwt } from './libs/passport-jwt';
+/* Routes */
+import taskRouter from "./routes/task.routes";
+import userRouter from "./routes/user.routes";
+import projectRouter from "./routes/project.routes";
+
+/* Authenticate */
+import { passportJwt } from "./libs/passport-jwt";
 
 class App {
+  /* Initializations */
   constructor(private app: Application) {}
 
-  public settings(): void {
-    this.app.set('port', process.env.PORT || 3001);
-  }
-
+  /* Middlewares */
   public middlewares(): void {
     this.app.use(cors());
-    this.app.use(morgan('dev'));
+    this.app.use(morgan("dev"));
     this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: false }));
     passport.use(passportJwt.nuevaStrategia());
+    this.app.use(express.urlencoded({ extended: false }));
   }
 
+  /* Routes */
   public routes(): void {
-    this.app.use('/api', projectRouter);
-    this.app.use('/api', taskRouter);
-    this.app.use('/api', userRouter);
+    this.app.use("/api", taskRouter);
+    this.app.use("/api", userRouter);
+    this.app.use("/api", projectRouter);
   }
 
+  /* Server Running */
   public async server(): Promise<void> {
     try {
-      const port = await this.app.listen(this.app.get('port'));
-
-      if (port) console.log(`Server On Port ${this.app.get('port')}`);
-      else console.log(`Port No Exist!`);
-    } catch {
+      await this.app.listen(process.env.PORT);
+      console.log(`Server On Port ${process.env.PORT}`);
+    } catch (e) {
       console.log(`You Can't Connect The Server`);
+      console.log(e);
     }
   }
 }

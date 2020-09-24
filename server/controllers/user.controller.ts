@@ -14,7 +14,7 @@ class UserController {
   async signup(req: Request, res: Response): Promise<Response<JSON>> {
     try {
       const userSignUp: IUserSignUp = req.body;
-
+      
       await hapiJoi.validateUser().validateAsync(userSignUp);
 
       userSignUp.password = await userPassword.encryptPassword(

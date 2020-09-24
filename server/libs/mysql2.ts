@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import { createConnection, Connection } from 'mysql2/promise';
 
 /* EL Mejor Manejo De Error Hasta El Momento(MEJORARLO) */

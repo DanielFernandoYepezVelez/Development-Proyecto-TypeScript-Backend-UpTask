@@ -37,6 +37,7 @@
         "@types/shortid": "0.0.29",
         "@types/slug": "^0.9.1",
         "@types/typescript": "^2.0.0",
+        "nodemon": "^2.0.4",
         "rimraf": "^3.0.2",
         "ts-node": "^8.10.2"
     }

@@ -6,7 +6,6 @@ class Main {
   }
 
   private init() {
-    app.settings();
     app.middlewares();
     app.routes();
     app.server();
