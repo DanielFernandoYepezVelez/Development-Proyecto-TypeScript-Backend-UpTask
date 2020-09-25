@@ -1,38 +1,34 @@
 /* Enviroment Vairables */
 import "dotenv/config";
 
-/* Libraries */
 import cors from "cors";
 import morgan from "morgan";
-import passport from "passport";
+// import passport from "passport";
 import express, { Application } from "express";
 
-/* Routes */
-import taskRouter from "./routes/task.routes";
-import userRouter from "./routes/user.routes";
-import projectRouter from "./routes/project.routes";
+/* Modules Routes */
+import { AuthRoutes } from "./auth/auth.routes";
 
 /* Authenticate */
-import { passportJwt } from "./libs/passport-jwt";
+import { passportJwt } from "./auth/libs/passport-jwt";
 
-class App {
+export class App {
   /* Initializations */
-  constructor(private app: Application) {}
+  private app: Application = express();
 
   /* Middlewares */
   public middlewares(): void {
     this.app.use(cors());
     this.app.use(morgan("dev"));
     this.app.use(express.json());
-    passport.use(passportJwt.nuevaStrategia());
+    // passport.use(passportJwt.nuevaStrategia());
     this.app.use(express.urlencoded({ extended: false }));
   }
 
   /* Routes */
   public routes(): void {
-    this.app.use("/api", taskRouter);
-    this.app.use("/api", userRouter);
-    this.app.use("/api", projectRouter);
+    this.app.use("/api", AuthRoutes.register);
+    this.app.use("/api", AuthRoutes.login);
   }
 
   /* Server Running */
@@ -46,5 +42,3 @@ class App {
     }
   }
 }
-
-export const app = new App(express());

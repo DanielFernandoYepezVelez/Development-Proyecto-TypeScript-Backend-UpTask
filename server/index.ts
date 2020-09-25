@@ -1,15 +1,18 @@
-import { app } from "./app";
+/* Application */
+import { App } from "./app";
 
 class Main {
+  private main = new App();
+
   constructor() {
     this.init();
   }
 
-  private init() {
-    app.middlewares();
-    app.routes();
-    app.server();
+  private init(): void {
+    this.main.middlewares();
+    this.main.routes();
+    this.main.server();
   }
 }
 
-new Main();
+export default new Main();
