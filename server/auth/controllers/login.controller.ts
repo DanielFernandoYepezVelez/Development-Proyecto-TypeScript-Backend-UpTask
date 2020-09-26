@@ -1,10 +1,19 @@
 import { Request, Response } from "express";
 
-export class LoginController {
-  public login(req: Request, res: Response): Response<JSON> {
-    try {
+import { LoginService } from '../services/login.service';
 
-        console.log('Trabajando Desde El Login Nueva Arquitectura');
+const loginService = new LoginService();
+
+export class LoginController {
+  public async login(req: Request, res: Response): Promise<Response<JSON>> {
+    const user = { ...req.body };
+
+    try {
+      // console.log(user);
+
+      const login = await loginService.login();
+
+      // console.log(login);
 
       return res.json({
         ok: true,

@@ -1,32 +1,25 @@
-import { createConnection, Connection } from 'mysql2/promise';
+import { createPool } from "mysql2/promise";
 
-/* EL Mejor Manejo De Error Hasta El Momento(MEJORARLO) */
-class Mysql2 {
-  objectConn: any;
+export class Mysql2 {
+  public pool: any;
 
-  async databaseConn(): Promise<Connection> {
+  constructor() {
     try {
-      this.objectConn = await createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+      this.pool = createPool({
+        host: process.env.HOST_DATABASE,
+        user: process.env.USER_DATABASE,
+        password: process.env.PASSWORD_DATABASE,
+        database: process.env.NAME_DATABASE,
         waitForConnections: true,
         connectionLimit: 10,
         queueLimit: 0,
       });
 
-      if (this.objectConn) {
-        console.log('>>> DB IS CONNECTED');
+      if (this.pool) {
+        console.log(">>> Database Is Connected");
       }
-
-      return this.objectConn;
     } catch (e) {
-      console.log('>>> DB IS NOT CONNECTED');
-      return e;
+      console.log(">>> Database Is NOT Connected", e);
     }
   }
 }
-
-const mysql2 = new Mysql2();
-export default mysql2.databaseConn();

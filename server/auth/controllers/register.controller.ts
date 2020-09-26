@@ -1,27 +1,24 @@
 import { Request, Response } from "express";
 
+/* Services */
+import { RegisterService } from '../services/register.service';
+
+/* Instanciando Services */
+const registerService = new RegisterService();
+
 /* Interfaces */
-import { IUser } from "../models/IUser";
+import { IUser } from '../models/IUser';
 
-export class RegisterController {
-  public register(req: Request, res: Response): Response<JSON> {
-    const user: IUser = {
-      ...req.body,
-    };
-
+export class RegisterController { 
+  public async register(req: Request, res: Response): Promise<Response<JSON>> {
+    const user: IUser = { ...req.body };
+    
     try {
-      console.log('Desde La NUeva Arquitectura', user);
+      const message: string = await registerService.registerUser(user);
+      return res.json({ ok: true, message });
 
-      return res.json({
-        ok: true,
-        message: "User Registered Successfully",
-      });
     } catch (e) {
-      return res.status(400).json({
-        ok: false,
-        message: "User No Registered Successfully",
-        error: e,
-      });
+      return res.status(400).json({ ok: false, message: "User No Registered Successfully", error: e });
     }
   }
 }

@@ -27,8 +27,8 @@ export class App {
 
   /* Routes */
   public routes(): void {
-    this.app.use("/api", AuthRoutes.register);
     this.app.use("/api", AuthRoutes.login);
+    this.app.use("/api", AuthRoutes.register);
   }
 
   /* Server Running */
