@@ -6,10 +6,8 @@ import { RegisterController } from "../controllers/register.controller";
 /* Middleware */
 import { RegisterMiddleware } from '../middlewares/register.middleware';
 
-/* Instanciando Controller */
+/* Instancias */
 const registerController = new RegisterController();
-
-/* Instanciando Middleware */
 const registerMiddleware = new RegisterMiddleware();
 
 export class RegisterRoute {

@@ -7,18 +7,18 @@ import { RegisterService } from '../services/register.service';
 const registerService = new RegisterService();
 
 /* Interfaces */
-import { IUser } from '../models/IUser';
+import { IRegister } from '../models/IRegister';
 
 export class RegisterController { 
   public async register(req: Request, res: Response): Promise<Response<JSON>> {
-    const user: IUser = { ...req.body };
+    const user: IRegister = { ...req.body };
     
     try {
       const message: string = await registerService.registerUser(user);
       return res.json({ ok: true, message });
 
     } catch (e) {
-      return res.status(400).json({ ok: false, message: "User No Registered Successfully", error: e });
+      return res.status(400).json({ ok: false, error: e });
     }
   }
 }

@@ -3,14 +3,15 @@ import "dotenv/config";
 
 import cors from "cors";
 import morgan from "morgan";
-// import passport from "passport";
+import passport from "passport";
 import express, { Application } from "express";
 
 /* Modules Routes */
 import { AuthRoutes } from "./auth/auth.routes";
 
 /* Authenticate */
-import { passportJwt } from "./auth/libs/passport-jwt";
+import { PassportJwt } from './auth/libs/passport-jwt';
+const passportJwt = new PassportJwt();
 
 export class App {
   /* Initializations */
@@ -21,7 +22,7 @@ export class App {
     this.app.use(cors());
     this.app.use(morgan("dev"));
     this.app.use(express.json());
-    // passport.use(passportJwt.nuevaStrategia());
+    passport.use(passportJwt.newStrategia());
     this.app.use(express.urlencoded({ extended: false }));
   }
 

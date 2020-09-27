@@ -1,21 +1,14 @@
 import { genSalt, hash, compare } from 'bcrypt';
 
-class UserPassword {
-  async encryptPassword(password: string): Promise<string> {
-    const salt = await genSalt(10);
-    const result = await hash(password, salt);
-
+export class UserPassword {
+  public async encryptPassword(password: string): Promise<string> {
+    const salt: string = await genSalt(10);
+    const result: string = await hash(password, salt);
     return result;
   }
 
-  async validatePassword(
-    userPassword: string,
-    databasePassword: string
-  ): Promise<boolean> {
+  public async validatePassword(userPassword: string, databasePassword: string): Promise<boolean> {
     const matchPassword = await compare(userPassword, databasePassword);
-
     return matchPassword;
   }
 }
-
-export const userPassword = new UserPassword();

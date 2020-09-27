@@ -1,6 +1,6 @@
 import { createPool } from "mysql2/promise";
 
-export class Mysql2 {
+class Mysql2 {
   public pool: any;
 
   constructor() {
@@ -23,3 +23,5 @@ export class Mysql2 {
     }
   }
 }
+
+export default new Mysql2().pool;
