@@ -7,4 +7,10 @@ export class LoginSchema {
             email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] }}).required(),
         });
     }
+
+    public loginGoogle(): ObjectSchema<Schema> {
+        return Joi.object({
+            token: Joi.string().required(),
+        });
+    }
 }

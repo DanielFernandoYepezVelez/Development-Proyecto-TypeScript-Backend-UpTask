@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS users (
 ALTER TABLE users
 MODIFY password VARCHAR (70) NOT NULL;
 
+/* Alterando La Img Por Que El String Es Mucho Más Largo Que El Definido Inicialmente */
+ALTER TABLE users
+MODIFY img VARCHAR (255) NULL;
+
 CREATE TABLE IF NOT EXISTS projects (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR (20) NOT NULL,

@@ -1,6 +1,7 @@
 /* Enviroment Vairables */
 import "dotenv/config";
 
+import path from 'path';
 import cors from "cors";
 import morgan from "morgan";
 import passport from "passport";
@@ -10,7 +11,7 @@ import express, { Application } from "express";
 import { AuthRoutes } from "./auth/auth.routes";
 
 /* Authenticate */
-import { PassportJwt } from './auth/libs/passport-jwt';
+import { PassportJwt } from './auth/middlewares/passport.middleware';
 const passportJwt = new PassportJwt();
 
 export class App {
@@ -30,6 +31,11 @@ export class App {
   public routes(): void {
     this.app.use("/api", AuthRoutes.login);
     this.app.use("/api", AuthRoutes.register);
+  }
+
+  /* Static Files */
+  public staticFiles() {
+    this.app.use(express.static(path.join(__dirname, './public/')));
   }
 
   /* Server Running */

@@ -1,5 +1,5 @@
 import pool from "../../libs/mysql2";
-import { UserPassword } from "../libs/bcrypt";
+import { UserPassword } from "../libs/bcrypt.lib";
 
 /* Interfaces */
 import { IRegister } from "../models/IRegister";

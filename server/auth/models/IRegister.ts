@@ -8,4 +8,5 @@ export interface IRegister {
   state?: number;
   google?: number;
   created_at?: Date;
+  repeat_password?: string;
 }

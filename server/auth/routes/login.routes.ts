@@ -15,5 +15,6 @@ export class LoginRoute {
 
   constructor() {
     this.router.post("/login", [loginMiddleware.login], loginController.login);
+    this.router.post("/login/google", [loginMiddleware.loginGoogle], loginController.loginGoogle);
   }
 }

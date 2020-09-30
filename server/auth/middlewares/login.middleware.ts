@@ -16,4 +16,14 @@ export class LoginMiddleware {
 
           return next();
     }
+
+    public async loginGoogle(req: Request, res: Response, next: NextFunction): Promise<any> {
+        const { error } = await loginSchema.loginGoogle().validate(req.body);
+    
+        if(error) {
+            return res.status(401).json({ok: false, error: error.details[0].message});
+        }
+
+        return next();
+    }
 }

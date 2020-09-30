@@ -11,9 +11,10 @@ import { IRegister } from '../models/IRegister';
 
 export class RegisterController { 
   public async register(req: Request, res: Response): Promise<Response<JSON>> {
-    const user: IRegister = { ...req.body };
-    
-    try {
+    const { name, email, password,  repeat_password } = req.body;
+    const user: IRegister = { name, email, password };
+
+    try {      
       const message: string = await registerService.registerUser(user);
       return res.json({ ok: true, message });
 
