@@ -8,7 +8,9 @@ import passport from "passport";
 import express, { Application } from "express";
 
 /* Modules Routes */
-import { AuthRoutes } from "./auth/auth.routes";
+import { AuthRoutes } from "./auth/auth.module.routes";
+import { TaskRoutes } from './tasks/task.module.routes';
+import { ProjectRoutes } from './projects/project.module.routes';
 
 /* Authenticate */
 import { PassportJwt } from './auth/middlewares/passport.middleware';
@@ -29,8 +31,10 @@ export class App {
 
   /* Routes */
   public routes(): void {
+    this.app.use("/api", TaskRoutes.task);
     this.app.use("/api", AuthRoutes.login);
     this.app.use("/api", AuthRoutes.register);
+    this.app.use("/api", ProjectRoutes.project);
   }
 
   /* Static Files */
