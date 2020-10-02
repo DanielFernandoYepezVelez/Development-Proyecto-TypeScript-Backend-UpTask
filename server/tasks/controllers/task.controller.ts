@@ -1,10 +1,18 @@
 import { Request, Response } from 'express';
 
+/* Services */
+import { TaskService } from '../services/task.service';
+
+/* Instancias */
+const taskService = new TaskService();
+
 export class TaskController {
     public async tasks(req: Request, res: Response): Promise<Response<JSON>> {
+        const { project_id } = req.params;
+        
         try {
-            console.log('Obtener Todas Las Tareas Creadas En Un Proyecto De Un Usuarios En Particular');
-            return res.json({ok:true});
+            const tasks: object[] = await taskService.tasks(project_id);
+            return res.json({ ok:true, tasks });
 
         } catch (e) {
             return res.status(400).json({ok:false, error: e});
@@ -12,19 +20,25 @@ export class TaskController {
     }
 
     public async createTask(req: Request, res: Response): Promise<Response<JSON>> {
+        const { name }  = req.body;
+        const { project_id } = req.params;
+
         try {
-            console.log('Crear Una Nueva Tarea De Un Proyecto De Un Usuarios En Particular');
-            return res.json({ok:true});
+            const message: string = await taskService.createTask(project_id, name);
+            return res.json({ ok:true, message });
 
         } catch (e) {
-            return res.status(400).json({ok:false, error: e});
+            return res.status(400).json({ ok:false, error: e });
         }
     }
 
+    /* Solo Cambia El Estado Si Esta Completada O No(1 - 0) */
     public async updateTask(req: Request, res: Response): Promise<Response<JSON>> {
+        const { task_id } = req.params;
+
         try {
-            console.log('Actualiza Una Tarea De Un Proyecto De Un Usuarios En Particular');
-            return res.json({ok:true});
+            const message: string = await taskService.updateTask(task_id);
+            return res.json({ ok:true, message });
 
         } catch (e) {
             return res.status(400).json({ok:false, error: e});
@@ -32,9 +46,11 @@ export class TaskController {
     }
 
     public async deleteTask(req: Request, res: Response): Promise<Response<JSON>> {
+        const { id_task } = req.params;
+
         try {
-            console.log('Elimina Una Tarea De Un Proyecto De Un Usuarios En Particular');
-            return res.json({ok:true});
+            const message: string = await taskService.deleteTask(id_task);
+            return res.json({ ok:true, message });
 
         } catch (e) {
             return res.status(400).json({ok:false, error: e});
