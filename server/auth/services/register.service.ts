@@ -14,8 +14,7 @@ import { IRegister } from "../models/IRegister";
 const hash = new UserPassword();
 
 export class RegisterService {
-  public async registerUser(user: IRegister): Promise<string> {
-    
+  public async registerUser(user: IRegister): Promise<string> {    
     const { email, password } = user;
     const [rows, fields]: object[][] = await pool.query('SELECT email FROM users WHERE email = ?', [email]);
 

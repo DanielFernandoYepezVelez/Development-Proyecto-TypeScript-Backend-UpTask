@@ -13,7 +13,7 @@ import { TaskRoutes } from './tasks/task.module.routes';
 import { ProjectRoutes } from './projects/project.module.routes';
 
 /* Authenticate */
-import { PassportJwt } from './auth/middlewares/passport.middleware';
+import { PassportJwt } from './middlewares/passport.middleware';
 const passportJwt = new PassportJwt();
 
 export class App {

@@ -1,7 +1,7 @@
 export interface IProject {
-  id?: string;
-  name: string;
   url: string;
-  user_id: number | any;
+  name: string;
+  user_id: string;
+  id?: string;
   created_at?: Date;
 }

@@ -32,6 +32,14 @@ CREATE TABLE IF NOT EXISTS projects (
     CONSTRAINT fk_projects_users FOREIGN KEY (user_id) REFERENCES users (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
+/* Alterando El Name Del Projecto */
+ALTER TABLE projects
+MODIFY name VARCHAR (50) NOT NULL;
+
+/* Alterando la url_id Del Projecto */
+ALTER TABLE projects
+MODIFY url VARCHAR (50) NOT NULL;
+
 CREATE TABLE IF NOT EXISTS tasks (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     task TEXT NOT NULL,

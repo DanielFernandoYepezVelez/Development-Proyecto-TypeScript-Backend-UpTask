@@ -1,10 +1,18 @@
 import { Request, Response } from "express";
 
+/* Services */
+import { ProjectService } from '../services/project.service';
+
+/* Instancias */
+const projectService = new ProjectService();
+
 export class ProjectController {
     public async projects(req: Request, res: Response): Promise<Response<JSON>> {
+        const idUser = req.user;
+
         try {
-            console.log('Solicitar Todos Los Proyectos Existentes De Ese Usuario En Particular');
-            return res.json({ok: true});
+            const projects: object[] = await projectService.projects(idUser);
+            return res.json({ok: true, projects});
             
         } catch (e) {
             return res.status(400).json({ok: false, error: e});
@@ -12,9 +20,12 @@ export class ProjectController {
     }
 
     public async project(req: Request, res: Response): Promise<Response<JSON>> {
+        const idUser = req.user;
+        const { project_url } = req.params;
+        
         try {
-            console.log('Solicitar Un Proyecto Existente Por Medio De La Url De Ese Usuario En Particular');
-            return res.json({ok: true});
+            const project: object[] = await projectService.project(project_url, idUser);
+            return res.json({ok: true, project});
             
         } catch (e) {
             return res.status(400).json({ok: false, error: e});
@@ -22,19 +33,26 @@ export class ProjectController {
     }
 
     public async createProject(req: Request, res: Response): Promise<Response<JSON>> {
+        const  idUser  = req.user;
+        const { name } = req.body;
+
         try {
-            console.log('Crear Un Nuevo Proyecto Para Un Usuario En Particular');
-            return res.json({ok: true});
+            const message: string = await projectService.createProject(name, idUser);
+            return res.json({ ok: true, message });
             
         } catch (e) {
-            return res.status(400).json({ok: false, error: e});
+            return res.status(400).json({ ok: false, error: e });
         }
     }
 
     public async updateProject(req: Request, res: Response): Promise<Response<JSON>> {
+        const idUser = req.user;
+        const { name } = req.body;
+        const { project_url, project_id } = req.params;
+
         try {
-            console.log('Actualizar Un Proyecto Para Un Usuario En Particular');
-            return res.json({ok: true});
+            const message: string = await projectService.updateProject(name, project_url, project_id, idUser);
+            return res.json({ok: true, message});
             
         } catch (e) {
             return res.status(400).json({ok: false, error: e});
@@ -42,9 +60,12 @@ export class ProjectController {
     }
 
     public async deleteProject(req: Request, res: Response): Promise<Response<JSON>> {
+        const idUser = req.user;
+        const { project_url, project_id } = req.params;
+
         try {
-            console.log('Eliminar Un Proyecto Para Un Usuario En Particular');
-            return res.json({ok: true});
+            const message = await projectService.deleteProject(project_id, project_url, idUser);
+            return res.json({ok: true, message});
             
         } catch (e) {
             return res.status(400).json({ok: false, error: e});
