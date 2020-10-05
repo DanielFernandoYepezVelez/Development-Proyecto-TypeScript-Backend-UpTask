@@ -3,8 +3,8 @@ import pool from "../../libs/mysql2";
 import { UserPassword } from "../libs/bcrypt.lib";
 
 /* Interfaces */
-import { ILogin } from "../models/ILogin";
-import { IRegister } from '../models/IRegister';
+import { ILogin } from "../interfaces/login.interface.";
+import { IRegister } from '../interfaces/register.interface';
 
 /* Instancias */
 /* 
@@ -22,14 +22,14 @@ export class LoginService {
         const [rows, fields]: object[][] = await pool.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
 
         if (![rows, fields][0][0]) {
-            throw new Error("User No Exist!").message;
+            throw new Error("Usuario No Existe!").message;
         }
 
         const userDB = Object.values([rows, fields][0][0]).filter(userDB => userDB);
         const match = await matchHash.validatePassword(password, userDB[2]);
         
         if(!match) {
-            throw new Error("Error O Password Incorrect!").message;            
+            throw new Error("Email O Contraseña Incorrecta!").message;            
         } 
 
         const token = jwt.createToken(userDB[0]);

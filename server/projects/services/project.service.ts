@@ -5,7 +5,7 @@ import { generate } from 'shortid';
 import pool from '../../libs/mysql2';
 
 /* Interface */
-import { IProject } from '../models/IProject';
+import { IProject } from '../interfaces/project.interface';
 
 export class ProjectService {
     public async projects(idUser: any): Promise<object[]> {

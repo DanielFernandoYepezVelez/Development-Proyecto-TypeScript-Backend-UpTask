@@ -5,7 +5,7 @@ import { GoogleTokenVerify } from '../libs/google-auth.lib';
 import { LoginService } from '../services/login.service';
 
 /* Interfaces */
-import { ILogin } from "../models/ILogin";
+import { ILogin } from "../interfaces/login.interface.";
 
 /* Instancias */
 const loginService = new LoginService();

@@ -7,7 +7,7 @@ import { RegisterService } from '../services/register.service';
 const registerService = new RegisterService();
 
 /* Interfaces */
-import { IRegister } from '../models/IRegister';
+import { IRegister } from '../interfaces/register.interface';
 
 export class RegisterController { 
   public async register(req: Request, res: Response): Promise<Response<JSON>> {

@@ -2,7 +2,7 @@ import pool from "../../libs/mysql2";
 import { UserPassword } from "../libs/bcrypt.lib";
 
 /* Interfaces */
-import { IRegister } from "../models/IRegister";
+import { IRegister } from "../interfaces/register.interface";
 
 /* Instancias */
 /* 
@@ -19,7 +19,7 @@ export class RegisterService {
     const [rows, fields]: object[][] = await pool.query('SELECT email FROM users WHERE email = ?', [email]);
 
     if([rows, fields][0][0]) {
-      throw new Error("Email Already Exist!").message;       
+      throw new Error("Email Ya Existe!").message;       
     }
 
     const passwordDB: string = await hash.encryptPassword(password);

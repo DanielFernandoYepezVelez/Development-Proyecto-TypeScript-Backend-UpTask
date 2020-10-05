@@ -1,7 +1,7 @@
 import pool from '../../libs/mysql2';
 
 /* Interfaces */
-import { ITask } from '../models/ITask';
+import { ITask } from '../interfaces/task.interface';
 
 export class TaskService{
     public async tasks(project_id: string): Promise<Object[]> {
