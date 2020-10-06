@@ -37,4 +37,17 @@ export class LoginController {
       return res.status(400).json({ ok: false, message: 'Si error === {}; El Token No Es Válido', error: e });
     }
   }
+
+  /* Aqui Estoy Validar Y Renovando El Token Que Voy Almacenar En El LocalStorage Desde El Frontend Y Comprobar Que Sea Válido */
+  public async loginRenew(req: Request, res: Response): Promise<Response<JSON>> {
+    const idUser = req.user;
+
+    try {
+      const tokenValidado: string = await loginService.loginRenew(idUser);
+      return res.json({ ok: true, tokenValidado});
+
+    } catch (e) {
+      return res.status(400).json({ ok: false, error: e});
+    }
+  }
 }

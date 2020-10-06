@@ -60,4 +60,9 @@ export class LoginService {
 
         return tokenPropio;
     }
+
+    public async loginRenew(idUser: any): Promise<string> {
+        const tokenValidado: string = jwt.createToken(idUser);
+        return tokenValidado;
+    }
 }

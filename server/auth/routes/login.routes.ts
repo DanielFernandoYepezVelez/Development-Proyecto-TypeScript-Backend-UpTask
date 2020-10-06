@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticate } from 'passport';
 
 /* Controller */
 import { LoginController } from '../controllers/login.controller';
@@ -16,5 +17,6 @@ export class LoginRoute {
   constructor() {
     this.router.post("/login", [loginMiddleware.login], loginController.login);
     this.router.post("/login/google", [loginMiddleware.loginGoogle], loginController.loginGoogle);
+    this.router.get("/login/renew", [ authenticate('jwt', { session: false }) ], loginController.loginRenew);
   }
 }
