@@ -3,12 +3,14 @@ import { GoogleTokenVerify } from '../libs/google-auth.lib';
 
 /* Services */
 import { LoginService } from '../services/login.service';
+import { ProjectService } from '../../projects/services/project.service';
 
 /* Interfaces */
 import { ILogin } from "../interfaces/login.interface.";
 
 /* Instancias */
 const loginService = new LoginService();
+const projectService = new ProjectService();
 const googleTokenVerify = new GoogleTokenVerify();
 
 export class LoginController {
@@ -44,7 +46,9 @@ export class LoginController {
 
     try {
       const tokenValidado: string = await loginService.loginRenew(idUser);
-      return res.json({ ok: true, tokenValidado});
+      const projects: object[] = await projectService.projects(idUser);
+
+      return res.json({ ok: true, tokenValidado, projects});
 
     } catch (e) {
       return res.status(400).json({ ok: false, error: e});
