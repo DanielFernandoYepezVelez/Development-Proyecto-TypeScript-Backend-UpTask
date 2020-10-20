@@ -15,7 +15,7 @@ export class TaskService{
         return [rows, fields][0];
     }
 
-    public async createTask(project_id: string, name: string): Promise<string> {
+    public async createTask(project_id: string, name: string): Promise<Object[]> {
         let [rows, fields]: object[][] = await pool.query('SELECT * FROM projects WHERE id = ?', [project_id]);
     
         if(![rows, fields][0][0]) {
@@ -31,7 +31,9 @@ export class TaskService{
         const task: ITask = { task: name, project_id };
 
         [rows, fields] = await pool.query('INSERT INTO tasks SET ?', [task]);
-        return 'Successfully Created Task';
+        [rows, fields] = await pool.query('SELECT * FROM tasks WHERE project_id = ?', [project_id]);        
+
+        return [rows, fields][0];
     }
 
     /* Solo Cambia El Estado Si Esta Completada O No(1 - 0) */

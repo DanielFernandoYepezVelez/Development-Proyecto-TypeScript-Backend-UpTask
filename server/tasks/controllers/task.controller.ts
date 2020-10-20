@@ -24,8 +24,8 @@ export class TaskController {
         const { project_id } = req.params;
 
         try {
-            const message: string = await taskService.createTask(project_id, name);
-            return res.json({ ok:true, message });
+            const tasks: object[] = await taskService.createTask(project_id, name);
+            return res.json({ ok:true, message: 'Successfully Created Task', tasks });
 
         } catch (e) {
             return res.status(400).json({ ok:false, error: e });
