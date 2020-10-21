@@ -11,7 +11,7 @@ export class TaskService{
             throw new Error("Project No Exist!").message;
         }
 
-        [rows, fields] = await pool.query('SELECT * FROM tasks WHERE project_id = ?', [project_id]);        
+        [rows, fields] = await pool.query('SELECT * FROM tasks WHERE project_id = ? ORDER BY id ASC', [project_id]);        
         return [rows, fields][0];
     }
 
@@ -31,7 +31,7 @@ export class TaskService{
         const task: ITask = { task: name, project_id };
 
         [rows, fields] = await pool.query('INSERT INTO tasks SET ?', [task]);
-        [rows, fields] = await pool.query('SELECT * FROM tasks WHERE project_id = ?', [project_id]);        
+        [rows, fields] = await pool.query('SELECT * FROM tasks WHERE project_id = ? ORDER BY id ASC', [project_id]);        
 
         return [rows, fields][0];
     }

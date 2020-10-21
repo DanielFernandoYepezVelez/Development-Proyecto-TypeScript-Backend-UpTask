@@ -37,8 +37,8 @@ export class ProjectController {
         const { name } = req.body;
 
         try {
-            const message: string = await projectService.createProject(name, idUser);
-            return res.json({ ok: true, message });
+            const projects: object = await projectService.createProject(name, idUser);
+            return res.json({ ok: true, message: 'Successfully Project Create', projects });
             
         } catch (e) {
             return res.status(400).json({ ok: false, error: e });

@@ -23,18 +23,20 @@ export class ProjectService {
         return [rows, fields][0];
     }
 
-    public async createProject(name:string, idUser: any): Promise<string> {
+    public async createProject(name:string, idUser: any): Promise<object> {
         const url_id: string = `${generate()}-${slug(name).toLocaleLowerCase()}`;
         const project: IProject = {name, url: url_id, user_id: idUser};
 
-        const [rows, fields]: object[][] = await pool.query('SELECT name FROM projects WHERE name = ? AND user_id = ?', [ name, idUser ]);
+        let [rows, fields]: object[][] = await pool.query('SELECT name FROM projects WHERE name = ? AND user_id = ?', [ name, idUser ]);
 
         if([rows, fields][0][0]) {
             throw new Error("Name Project Already Exist!").message;
         }
 
         await pool.query('INSERT INTO projects SET ?', [ project ]);
-        return 'Successfully Project Create';
+        [rows, fields] = await pool.query('SELECT * FROM projects WHERE name = ? AND user_id = ? ORDER BY id ASC', [ name, idUser ]);
+
+        return [rows, fields][0];
     }
 
     public async updateProject(name: string, project_url: string, project_id: string, idUser: any): Promise<string> {
