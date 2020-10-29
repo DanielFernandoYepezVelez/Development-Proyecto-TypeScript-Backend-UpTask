@@ -5,7 +5,7 @@ import path from 'path';
 import cors from "cors";
 import morgan from "morgan";
 import passport from "passport";
-import express, { Application } from "express";
+import express, { Application, Request, Response} from "express";
 
 /* Modules Routes */
 import { AuthRoutes } from "./auth/auth.module.routes";
@@ -29,17 +29,23 @@ export class App {
     this.app.use(express.urlencoded({ extended: false }));
   }
 
+    /* Static Files */
+    public staticFiles() {
+      this.app.use(express.static(path.join(__dirname, './public/')));
+    }
+
   /* Routes */
   public routes(): void {
     this.app.use("/api", TaskRoutes.task);
     this.app.use("/api", AuthRoutes.login);
     this.app.use("/api", AuthRoutes.register);
     this.app.use("/api", ProjectRoutes.project);
-  }
 
-  /* Static Files */
-  public staticFiles() {
-    this.app.use(express.static(path.join(__dirname, './public/')));
+    /* Cualquier Otra Ruta Que No Sea Alguna De Las Anteriores
+    Va Ha Pasar Por El Index */
+    this.app.get("*", (req: Request, res: Response) => {
+      res.sendFile(path.resolve(__dirname, './public/index.html'));
+    });
   }
 
   /* Server Running */

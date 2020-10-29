@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node ./dist/index.js",
         "dev": "nodemon",
-        "build": "rimraf ./dist/ && tsc"
+        "build": "rimraf ./dist/ && tsc",
+        "publiccopy": "ncp ./server/public/ ./dist/public/"
     },
     "keywords": [],
     "author": "Daniel Fernando Yepez Vélez",
@@ -38,6 +39,7 @@
         "@types/shortid": "0.0.29",
         "@types/slug": "^0.9.1",
         "@types/typescript": "^2.0.0",
+        "ncp": "^2.0.0",
         "nodemon": "^2.0.4",
         "rimraf": "^3.0.2",
         "ts-node": "^8.10.2"

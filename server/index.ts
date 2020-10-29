@@ -10,8 +10,8 @@ class Main {
 
   private init(): void {
     this.main.middlewares();
-    this.main.routes();
     this.main.staticFiles();
+    this.main.routes();
     this.main.server();
   }
 }

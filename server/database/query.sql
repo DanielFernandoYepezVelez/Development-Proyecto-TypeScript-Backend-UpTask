@@ -34,11 +34,11 @@ CREATE TABLE IF NOT EXISTS projects (
 
 /* Alterando El Name Del Projecto */
 ALTER TABLE projects
-MODIFY name VARCHAR (50) NOT NULL;
+MODIFY name VARCHAR (255) NOT NULL;
 
 /* Alterando la url_id Del Projecto */
 ALTER TABLE projects
-MODIFY url VARCHAR (50) NOT NULL;
+MODIFY url VARCHAR (70) NOT NULL;
 
 CREATE TABLE IF NOT EXISTS tasks (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
